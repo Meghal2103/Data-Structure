@@ -179,6 +179,72 @@ int binarySearchloop(struct Array *a,int value,int start, int end)
     return -1;
 }
 
+void reverseArrray(struct Array *a)
+{
+    int *b = (int*)malloc(sizeof(int)*a->size);
+    for(int i=0; i<=a->last; i++)
+    {
+        b[i] = a->a[a->last-i];
+    }
+    free(a->a);
+    a->a = b;
+    b=NULL;
+}
+
+void swap(int *a, int *b)
+{
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void reverseArraySwap(struct Array *a)
+{
+    for(int i=0; i<=(a->last)/2; i++)
+    {
+        swap(&(a->a[i]), &(a->a[a->last -i]));
+    }
+}
+
+void leftShiftArray(struct Array *a)
+{
+    for(int i = 0; i < a->last; i++)
+    {
+        a->a[i] = a->a[i+1];
+    }
+    a->a[a->last] = 0;
+}
+
+void rightShiftArray(struct Array *a)
+{
+    for(int i = a->last; i>0; i--)
+    {
+        a->a[i] = a->a[i-1];
+    }
+    a->a[0] = 0;
+}
+
+void leftRotateArray(struct Array *a)
+{
+    int x = a->a[0];
+    for(int i = 0; i < a->last; i++)
+    {
+        a->a[i] = a->a[i+1];
+    }
+    a->a[a->last] = x;
+}
+
+void rightRotateArray(struct Array *a)
+{
+    int x = a->a[a->last];
+    for(int i = a->last; i>0 ; i--)
+    {
+        a->a[i] = a->a[i-1];
+    }
+    a->a[0] = x;
+}
+
 int main()
 {
     struct Array a;
@@ -187,6 +253,7 @@ int main()
     AppendArray(&a,2);
     AppendArray(&a,3);
     AppendArray(&a,4);
+    AppendArray(&a,5);
     insertArray(&a,1,1);
     deleteArray(&a,1);
     displayArray(a);
@@ -194,4 +261,10 @@ int main()
     printf("%d \n",maxArray(a));
     printf("%d \n",minArray(a));
     printf("%d \n",sumArray(a));
+    reverseArrray(&a);
+    reverseArraySwap(&a);
+    leftShiftArray(&a);
+    rightShiftArray(&a);
+    leftRotateArray(&a); 
+    rightRotateArray(&a);
 }
