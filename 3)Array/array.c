@@ -194,5 +194,4 @@ int main()
     printf("%d \n",maxArray(a));
     printf("%d \n",minArray(a));
     printf("%d \n",sumArray(a));
-    printf("%f \n",avgArray(a));
 }
