@@ -34,6 +34,7 @@ void insertArray(struct Array *a, int index, int x)
         }
     }
     a->a[index] = x;
+    a->last++;
 }
 
 void AppendArray(struct Array *a, int x)
@@ -77,6 +78,64 @@ int linearSearch(struct Array *a, int value)
         }
     }
     return -1;
+}
+
+int gettArray(struct Array *a, int index)
+{
+    if(index>=0 && index<(a->last+1))
+    {
+        return a->a[index];
+    }
+}
+
+void setArray(struct Array *a, int index, int value)
+{
+    if(index>=0 && index<(a->last+1))
+    {
+        a->a[index] = value;
+    }
+}
+
+int maxArray(struct Array a)
+{
+    int max = a.a[0];
+    for(int i=1; i<=a.last; i++)
+    {
+        if(max<a.a[i])
+        {
+            max = a.a[i];
+        }
+    }
+    return max;
+}
+
+int minArray(struct Array a)
+{
+    int min = a.a[0];
+    for(int i=1; i<=a.last; i++)
+    {
+        if(min>a.a[i])
+        {
+            min = a.a[i];
+        }
+    }
+    return min;
+}
+
+int sumArray(struct Array a)
+{
+    int sum=0;
+    for(int i=0; i<=a.last; i++)
+    {
+        sum = sum + a.a[i];
+    }
+    return sum;
+}
+
+float avgArray(struct Array a)
+{
+    float avg = (float)sumArray(a)/(a.last+1);
+    return avg;
 }
 
 int binarySearch(struct Array *a, int value, int start, int end)
@@ -128,9 +187,12 @@ int main()
     AppendArray(&a,2);
     AppendArray(&a,3);
     AppendArray(&a,4);
-    // insertArray(&a,1,1);
-    // deleteArray(&a,1);
+    insertArray(&a,1,1);
+    deleteArray(&a,1);
     displayArray(a);
     printf("%d ",binarySearch(&a,1,0,a.last));
-    printf("%d ",binarySearchloop(&a,4,0,a.last));
+    printf("%d \n",maxArray(a));
+    printf("%d \n",minArray(a));
+    printf("%d \n",sumArray(a));
+    printf("%f \n",avgArray(a));
 }
