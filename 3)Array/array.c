@@ -245,26 +245,103 @@ void rightRotateArray(struct Array *a)
     a->a[0] = x;
 }
 
+int isSorted(struct Array a)
+{
+    for(int i = 0; i < a.last; i++)
+    {
+        if(a.a[i] > a.a[i+1])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void insertSortedArray(struct Array *a, int value)
+{
+    int i=-1,j=0;
+    if(isSorted(*a))
+    {
+        while(i==-1)
+        {
+            if(a->a[j] > value)
+            {
+                i=j;
+                insertArray(a,i,value);
+            }
+            j++;
+        }
+    }
+}
+
+void rearrangeArrayPN(struct Array *a)
+{
+    int i=0,j=a->last;
+    for(int k=0;k<a->last/2;k++)
+    {
+        while(a->a[i]<0)
+        {
+            i++;
+        }
+        while(a->a[j]>0)
+        {
+            j--;
+        }
+        swap(&(a->a[j]),&(a->a[i]));
+    }
+}
+
+void merge(struct Array a,struct Array b, struct Array *c)
+{
+    createArray(c,(a.size+b.size));
+    int i=0,j=0,k=0;
+    while(k<=a.last+b.last+1) 
+    {
+        if((a.a[i]<b.a[j] && i<=a.last) || j>b.last)
+        {
+            c->a[k]=a.a[i];
+            k++;
+            i++;
+        }
+        else 
+        {
+            c->a[k]=b.a[j];
+            k++;
+            j++;
+        }
+    }
+}
+
 int main()
 {
     struct Array a;
+    struct Array b;
+    struct Array c;
     createArray(&a,8);
+    createArray(&b,4);
     AppendArray(&a,1);
-    AppendArray(&a,2);
     AppendArray(&a,3);
-    AppendArray(&a,4);
     AppendArray(&a,5);
-    insertArray(&a,1,1);
-    deleteArray(&a,1);
-    displayArray(a);
-    printf("%d ",binarySearch(&a,1,0,a.last));
-    printf("%d \n",maxArray(a));
-    printf("%d \n",minArray(a));
-    printf("%d \n",sumArray(a));
-    reverseArrray(&a);
-    reverseArraySwap(&a);
-    leftShiftArray(&a);
-    rightShiftArray(&a);
-    leftRotateArray(&a); 
-    rightRotateArray(&a);
+    AppendArray(&a,7);
+    // rearrangeArrayPN(&a);
+    AppendArray(&b,2);
+    AppendArray(&b,4);
+    AppendArray(&b,6);
+    AppendArray(&b,8);
+    merge(a,b,&c);
+    // insertArray(&a,1,1);
+    // deleteArray(&a,1);
+    // displayArray(a);
+    // printf("%d ",binarySearch(&a,1,0,a.last));
+    // printf("%d \n",maxArray(a));
+    // printf("%d \n",minArray(a));
+    // printf("%d \n",sumArray(a));
+    // reverseArrray(&a);
+    // reverseArraySwap(&a);
+    // leftShiftArray(&a);
+    // rightShiftArray(&a);
+    // leftRotateArray(&a); 
+    // rightRotateArray(&a);
+    // int x = isSorted(a);
+    // insertSortedArray(&a, 4);
 }
