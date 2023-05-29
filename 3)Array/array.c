@@ -293,23 +293,118 @@ void rearrangeArrayPN(struct Array *a)
 
 void merge(struct Array a,struct Array b, struct Array *c)
 {
-    createArray(c,(a.size+b.size));
-    int i=0,j=0,k=0;
-    while(k<=a.last+b.last+1) 
+    if(isSorted(a) && isSorted(b))
     {
-        if((a.a[i]<b.a[j] && i<=a.last) || j>b.last)
+        createArray(c,(a.size+b.size));
+        int i=0,j=0,k=0;
+        while(k<=a.last+b.last+1) 
         {
-            c->a[k]=a.a[i];
-            k++;
-            i++;
+            if((a.a[i]<b.a[j] && i<=a.last) || j>b.last)
+            {
+                c->a[k]=a.a[i];
+                k++;
+                i++;
+            }
+            else 
+            {
+                c->a[k]=b.a[j];
+                k++;
+                j++;
+            }
         }
-        else 
+        c->last=a.last+a.last+1;
+    }
+}
+
+void unionArray(struct Array a,struct Array b, struct Array *c)
+{
+    if(isSorted(a) && isSorted(b))
+    {
+        createArray(c,(a.size+b.size));
+        int i=0,j=0;
+        c->last=0;
+        while(i+j<=a.last+b.last+1) 
         {
-            c->a[k]=b.a[j];
-            k++;
-            j++;
+            if((a.a[i]<b.a[j] && i<=a.last) || j>b.last)
+            {
+                c->a[c->last]=a.a[i];
+                c->last++;
+                i++;
+            }
+            else if((a.a[i]>b.a[j] && j<=b.last) || i>a.last)
+            {
+                c->a[c->last]=b.a[j];
+                c->last++;
+                j++;
+            }
+            else
+            {
+                c->a[c->last]=a.a[i];
+                c->last++;
+                i++;
+                j++;
+            }
         }
     }
+    c->last--;
+}
+
+void intersectionArray(struct Array a,struct Array b, struct Array *c)
+{
+    if(isSorted(a) && isSorted(b))
+    {
+        createArray(c,(a.size+b.size));
+        int i=0,j=0;
+        c->last=0;
+        while(i+j<=a.last) 
+        {
+            if((a.a[i]<b.a[j] && i<=a.last) || j>b.last)
+            {
+                c->a[c->last]=a.a[i];
+                c->last++;
+                i++;
+            }
+            else if((a.a[i]>b.a[j] && j<=b.last) || i>a.last)
+            {
+                j++;
+            }
+            else
+            {
+                i++;
+                j++;
+            }
+        }
+    }
+    c->last--;
+}
+
+void differenceArray(struct Array a,struct Array b, struct Array *c)
+{
+    if(isSorted(a) && isSorted(b))
+    {
+        createArray(c,(a.size+b.size));
+        int i=0,j=0;
+        c->last=0;
+        while(i<=a.last) 
+        {
+            while(a.a[i]>b.a[j])
+            {
+                j++;
+            }
+            if((a.a[i]!=b.a[j] && i<=a.last) || j>b.last)
+            {
+                c->a[c->last]=a.a[i];
+                c->last++;
+                i++;
+            }
+            else
+            {
+                i++;
+                j++;
+            }
+        }
+    }
+    c->last--;
 }
 
 int main()
@@ -317,7 +412,7 @@ int main()
     struct Array a;
     struct Array b;
     struct Array c;
-    createArray(&a,8);
+    createArray(&a,4);
     createArray(&b,4);
     AppendArray(&a,1);
     AppendArray(&a,3);
@@ -325,10 +420,13 @@ int main()
     AppendArray(&a,7);
     // rearrangeArrayPN(&a);
     AppendArray(&b,2);
-    AppendArray(&b,4);
+    AppendArray(&b,3);
     AppendArray(&b,6);
     AppendArray(&b,8);
-    merge(a,b,&c);
+    // merge(a,b,&c);
+    // unionArray(a,b,&c);
+    intersectionArray(a,b,&c);
+    differenceArray(a,b,&c);
     // insertArray(&a,1,1);
     // deleteArray(&a,1);
     // displayArray(a);
