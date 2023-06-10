@@ -238,6 +238,57 @@ void anagram(char s1[], char s2[])
    
 }
 
+int fact(int n)
+{
+    int fact=n;
+    int i=n-1;
+    while(i>0)
+    {
+        fact=fact*i;
+        i--;
+    }
+    return fact;
+}
+
+void permuation(char s[], int k)
+{
+    int len = lenghtOfString(s);
+    static int taken[10] = {0};
+    static char stg[10];
+    if(k==len)
+    {
+        s[len] = '\0';
+        printf("%s\n",stg);
+        return;
+    }
+    int i=0;
+    for(i; i < len; i++)
+    {
+        if(taken[i] == 0)
+        {
+            taken[i] = 1;
+            stg[k]=s[i];
+            permuation(s,k+1);
+            taken[i] = 0;
+        }
+    }
+}
+
+void permu(char s[], int l, int h)
+{
+    if(l==h)
+    {
+        printf("%s\n",s);
+        return;
+    }
+    for(int i=l; i<=h; i++)
+    {
+        swap(&s[i],&s[l]);
+        permu(s,l+1,h);
+        swap(&s[i],&s[l]);
+    }
+}
+
 int main()
 {
     // char a[] = "aBCDEf ghi___jKLMno pqrsT uvWXyZ";
@@ -252,9 +303,16 @@ int main()
     // printf("%s \n", a);
     // char p[]="racecar";
     // int x = pallindrome(a);
-    char a[]="racecar";
-    char b[]="racecar";
+    // char a[]="racecar";
+    // char b[]="racecar";
     // countAlphabetChar(a); 
     // duplicateAlphabet(a);
-    anagram(a,b);
+    // anagram(a,b);
+    // char a[] = "abc";
+    // int len = lenghtOfString(s);
+    // int pos[len];
+    // int fill[len];
+    // permuation(a,pos,fill, int len);
+    char a[] = "abc";
+    permu(a,0,2);
 }
