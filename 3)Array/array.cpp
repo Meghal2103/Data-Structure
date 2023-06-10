@@ -140,9 +140,11 @@ class intArray
             return avg;
         }
 
-        int binarySearchloop(int value,int start, int end)
+        int binarySearchloop(int value)
         {
             int x;
+            int start = 0;
+            int end = last;
             while(start<=end)
             {
                 x = (start+end)/2;
