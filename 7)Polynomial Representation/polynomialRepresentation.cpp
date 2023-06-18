@@ -9,13 +9,13 @@ class Term
         int power;
 };
 
-class polynomialRepresentation
+class polynomial
 {
     public:
         int n;
         Term *exp;
     public:
-        polynomialRepresentation(int n)
+        polynomial(int n)
         {
             this->n = n;
             exp = (Term *)malloc(sizeof(Term)*n);
@@ -31,10 +31,10 @@ class polynomialRepresentation
         }
 };
 
-// struct sparseMatrix * polynomsilAddition(struct polynomialRepresentation a, struct polynomialRepresentation b)
+// struct sparseMatrix * polynomsilAddition(struct polynomial a, struct polynomial b)
 // {
-//     struct polynomialRepresentation *c;
-//     c=(struct polynomialRepresentation *)malloc(sizeof(struct polynomialRepresentation));
+//     struct polynomial *c;
+//     c=(struct polynomial *)malloc(sizeof(struct polynomial));
 //     c->n = a.n;
 //     c->exp=(struct Term *)malloc((a.n+b.n)*sizeof(struct Term));
 //     int i=0,j=0,k=0;
@@ -62,10 +62,10 @@ class polynomialRepresentation
 //     return c;
 // };
 
-struct polynomialRepresentation* polynomsilAddition(struct polynomialRepresentation a, struct polynomialRepresentation b)
+struct polynomial* polynomsilAddition(struct polynomial a, struct polynomial b)
 {
-    struct polynomialRepresentation *c;
-    c = (struct polynomialRepresentation*)malloc(sizeof(struct polynomialRepresentation));
+    struct polynomial *c;
+    c = (struct polynomial*)malloc(sizeof(struct polynomial));
     c->n = a.n+b.n;
     c->exp = (struct Term*)malloc((a.n + b.n) * sizeof(struct Term));
     int i = 0, j = 0, k = 0;
@@ -100,7 +100,7 @@ struct polynomialRepresentation* polynomsilAddition(struct polynomialRepresentat
 
 int main()
 {
-    polynomialRepresentation a = polynomialRepresentation(3);
+    polynomial a = polynomial(3);
     a.exp[0].co_efficent=5;
     a.exp[0].power=4;
     a.exp[1].co_efficent=2;
@@ -109,7 +109,7 @@ int main()
     a.exp[2].power=0;
     int x = a.polynomialEvaluation(1);
     printf("%d",x);
-    polynomialRepresentation b = polynomialRepresentation(5);
+    polynomial b = polynomial(5);
     b.exp[0].co_efficent=6;
     b.exp[0].power=4;
     b.exp[1].co_efficent=5;
@@ -120,7 +120,7 @@ int main()
     b.exp[3].power=1;
     b.exp[4].co_efficent=3;
     b.exp[4].power=0;
-    polynomialRepresentation *c;
+    polynomial *c;
     c=polynomsilAddition(a,b);
 }
 
