@@ -58,7 +58,7 @@ struct sparseMatrix * sumSparseMatrix(struct sparseMatrix a, struct sparseMatrix
         int i=0,j=0,k=0;
         while(i<a.no_of_non_zero_values || j<b.no_of_non_zero_values)
         {
-            if(a.arr[i].i==b.arr[j].i)
+            if(a.arr[i].i==b.arr[j].i && i<a.no_of_non_zero_values)
             {
                 if(a.arr[i].j==b.arr[j].j)
                 {
@@ -86,7 +86,7 @@ struct sparseMatrix * sumSparseMatrix(struct sparseMatrix a, struct sparseMatrix
                     k++;
                 }
             }
-            else if(a.arr[i].i<b.arr[j].i)
+            else if(a.arr[i].i<b.arr[j].i && i<a.no_of_non_zero_values && j<b.no_of_non_zero_values)
             {
                 c->arr[k].i = a.arr[i].i;
                 c->arr[k].j = a.arr[i].j;
