@@ -11,6 +11,7 @@ int fun(int n)
         return fun(fun(n+11));
     }
 }
+
 int main()
 {
     printf("%d",fun(95));

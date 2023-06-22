@@ -238,6 +238,7 @@ class intArray
                 }
             }
         }
+        
         ~intArray()
         {
             free(a);

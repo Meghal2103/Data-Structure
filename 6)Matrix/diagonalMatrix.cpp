@@ -12,11 +12,13 @@ class diagonalArray
             a = (int *)malloc(10*sizeof(int));
             n = 10;
         }
+
         diagonalArray(int size)
         {
             a = (int *)malloc(size*sizeof(int));
             n = size;
         }
+
         void setArray(int row, int coloumn, int value)
         {
             if(row==coloumn && row<=n)
@@ -24,6 +26,7 @@ class diagonalArray
                 a[row-1]=value;
             }
         }
+
         int getArray(int row, int coloumn)
         {
             if(row==coloumn && row<=n)
@@ -32,6 +35,7 @@ class diagonalArray
             }
             return 0;
         }
+
         void display()
         {
             for(int i=0; i<n; i++)

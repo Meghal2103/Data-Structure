@@ -24,6 +24,7 @@ class sparseMatrix
             no_of_non_zero_values = no_of_non_zero_elements;
             arr = (Element *)malloc(sizeof(Element)*no_of_non_zero_values);
         }
+        
         void display()
         {
             int k=0;

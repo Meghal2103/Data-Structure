@@ -20,6 +20,7 @@ class polynomial
             this->n = n;
             exp = (Term *)malloc(sizeof(Term)*n);
         }
+        
         int polynomialEvaluation(int x)
         {
             int sum=0;

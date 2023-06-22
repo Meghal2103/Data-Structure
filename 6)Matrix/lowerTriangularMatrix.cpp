@@ -12,11 +12,13 @@ class lowerTriangularMatrix
             a = (int *)malloc(6*sizeof(int));
             n = 3;
         }
+
         lowerTriangularMatrix(int size)
         {
             a = (int *)malloc(size*(size+1)*0.5*sizeof(int));
             n = size;
         }
+
         void setArray(int row, int coloumn, int value)
         {
             if (row>=coloumn && row<=n)
@@ -25,6 +27,7 @@ class lowerTriangularMatrix
                 a[index] = value;
             }
         }
+
         int getArray(int row, int coloumn)
         {
             if(row>=coloumn && row<=n)
@@ -34,6 +37,7 @@ class lowerTriangularMatrix
             }
             return 0;
         }
+        
         void display()
         {
             for(int i=1; i<=n; i++)
