@@ -491,6 +491,20 @@ struct node * mergeLinkedList(struct node *head, struct node *tail)
     return p;
 }
 
+int isLoop(struct node *node)
+{
+    struct node *p,*q;
+    p=q=node;
+    do
+    {
+        p=p->next;
+        q=q->next;
+        q=q?q->next:q;
+    }
+    while(p && q && p!=q);
+    return p==q?1:0;
+}
+
 int main()
 {
     struct node *head=NULL;
@@ -502,8 +516,8 @@ int main()
     tail = arrayToLinkedList(b,5);
     displayLinkedList(head);
     printf("\n");
-    displayLinkedList(tail);
-    printf("\n");
+    // displayLinkedList(tail);
+    // printf("\n");
     // insertSorted(&head,0);
     // insertLast(head,&last,4);
     // printf("%d", countNodeIterative(head));
@@ -533,7 +547,13 @@ int main()
     // reverseLinkedListSliddingPointer(&head);
     // reverseLinkedListRecursion(&head, head, NULL);
     // concatLinkedList(head, tail);
-    head = mergeLinkedList(head, tail);
+    // head = mergeLinkedList(head, tail);
+    // tail = head;
+    // tail = tail->next;
+    // tail = tail->next;
+    // tail = tail->next;
+    // tail->next = head;
+    // printf("%d\n", isLoop(head));
     displayLinkedList(head);
 }
 
