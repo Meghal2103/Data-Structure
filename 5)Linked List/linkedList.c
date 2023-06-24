@@ -304,15 +304,139 @@ void insertSorted(struct node **head, int value)
     }
 } 
 
+int deleteLinkedList(struct node **head, int pos)
+{
+    struct node *p, *q, *r;
+    p = *head;
+    if(pos<-1 || pos>countNodeIterative(*head))
+        return INT_MAX;
+    if(pos == 0)
+    {
+        *head = (*head)->next;
+        int value = p->value;
+        free(p);
+        return value;
+    }
+    for(int i=1; i<pos; i++)
+    {
+        p = p->next;
+    }
+    q = p->next;
+    r = q;
+    q = q->next;
+    int value = r->value;
+    free(r);
+    p->next = q;
+    return value;
+}
+
+int sortedLinkedList(struct node *n)
+{
+    int prev_value = n->value;
+    struct node *q = (struct node *)malloc(sizeof(struct node));
+    q=n->next;
+    while(q!=NULL) 
+    {
+        if(prev_value > q->value)
+        {
+            return 0;
+        }
+        prev_value = q->value;
+        q=q->next;
+    }
+    return 1;
+}
+
+void removeDuplicateSortedLinkedList(struct node *n)
+{
+    if(sortedLinkedList(n))
+    {
+        struct node *q = (struct node *)malloc(sizeof(struct node));
+        struct node *p = (struct node *)malloc(sizeof(struct node));
+        p=n;
+        q=n->next;
+        while(q!=NULL) 
+        {
+            if(p->value == q->value)
+            {
+                p->next=q->next;
+                free(q);
+                q=p->next;
+            }
+            else
+            {
+                p = p->next;
+                q = q->next;
+            }
+
+        }
+    }
+}
+
+void reverseLinkedListStack(struct node *n)
+{
+    int no_of_elements = countNodeIterative(n);
+    int a[no_of_elements], top=0;
+    struct node *p;
+    p=n;
+    while(p!=NULL)
+    {
+        a[top] = p->value;
+        top++;
+        p=p->next;
+    }
+    p=n;
+    while(p!=NULL)
+    {
+        top--;
+        p->value = a[top];
+        p=p->next;
+    }
+
+}
+
+void reverseLinkedListSliddingPointer(struct node **n)
+{
+    struct node *q = (struct node *)malloc(sizeof(struct node));
+    struct node *p = (struct node *)malloc(sizeof(struct node));
+    struct node *r = (struct node *)malloc(sizeof(struct node));
+    q=*n;
+    p=NULL;
+    r=NULL;
+    while (q!=NULL)
+    {
+        r = p;
+        p = q;
+        q = q->next;
+        p->next = r;
+    }
+    *n=p;
+}
+
+void reverseLinkedListRecursion(struct node **n, struct node *p, struct node *q)
+{
+    if(p!=NULL)
+    {
+        reverseLinkedListRecursion(n, p->next, p);
+        p->next = q;
+    }
+    else
+    {
+        *n = q;
+    }
+}
+
 int main()
 {
     struct node *head=NULL;
     struct node *n;
     struct node *last=NULL;
-    int a[]={1,2,3,4,5,6};
-    head = arrayToLinkedList(a,6);
-    insertSorted(&head,0);
-    insertLast(head,&last,4);
+    int a[]={1,1,2,3,3,4,5,5,5};
+    head = arrayToLinkedList(a,9);
+    displayLinkedList(head);
+    printf("\n");
+    // insertSorted(&head,0);
+    // insertLast(head,&last,4);
     // printf("%d", countNodeIterative(head));
     // printf("%d",minRecursive(head));
     // displayLinkedList(head);
@@ -333,6 +457,12 @@ int main()
     // displayLinkedList(head);
     // inserLinkedList(&head,0,8);                      
     // printf("\n");
+    // deleteLinkedList(&head,0);
+    // sortedLinkedList(head);
+    // removeDuplicateSortedLinkedList(head);
+    // reverseLinkedList(head);
+    // reverseLinkedListSliddingPointer(&head);
+    reverseLinkedListRecursion(&head, head, NULL);
     displayLinkedList(head);
 }
 
