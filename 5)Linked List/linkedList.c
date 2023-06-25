@@ -205,7 +205,7 @@ struct node * recursiveLinearSearch(struct node *head, int value)
     return recursiveLinearSearch(head->next,value);
 }
 
-void inserLinkedList(struct node **head, int pos, int value)
+void insertLinkedList(struct node **head, int pos, int value)
 {
     if(pos>=0 && pos<=countNodeIterative(*head))
     {
@@ -330,7 +330,7 @@ int deleteLinkedList(struct node **head, int pos)
     return value;
 }
 
-int sortedLinkedList(struct node *head)
+int isSortedLinkedList(struct node *head)
 {
     int prev_value = head->value;
     struct node *q = (struct node *)malloc(sizeof(struct node));
@@ -491,10 +491,10 @@ struct node * mergeLinkedList(struct node *head, struct node *tail)
     return p;
 }
 
-int isLoop(struct node *node)
+int isLoop(struct node *head)
 {
     struct node *p,*q;
-    p=q=node;
+    p=q=head;
     do
     {
         p=p->next;
@@ -538,7 +538,7 @@ int main()
     //     printf("%d",n->value);
     // }
     // displayLinkedList(head);
-    // inserLinkedList(&head,0,8);                      
+    // insertLinkedList(&head,0,8);                      
     // printf("\n");
     // deleteLinkedList(&head,0);
     // sortedLinkedList(head);
