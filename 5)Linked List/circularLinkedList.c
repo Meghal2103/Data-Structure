@@ -23,8 +23,9 @@ void displayCircularLinkedListRecursive(struct node *head, struct node *pointer)
     if(pointer != head || flag == 0)
     {
         flag = 1;
-        printf("%d ", pointer->value);
+        // printf("%d ", pointer->value);
         displayCircularLinkedListRecursive(head, pointer->next);
+        printf("%d ", pointer->value);
     }
     flag = 0;
 }
@@ -138,7 +139,7 @@ int main()
     // printf("%d ", countLinkedList(head));
     // insertCircularLinkedList(&head, 0, -1);
     displayCircularLinkedList(head);
-    deleteCircularLinkedList(&head,0);
-    displayCircularLinkedList(head);
+    // deleteCircularLinkedList(&head,0);
+    displayCircularLinkedListRecursive(head, head);
 }
 

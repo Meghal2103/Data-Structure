@@ -8,28 +8,28 @@ class node
         node *next;
 };
 
-class linkedList
+class circularLinkedList
 {
     public:
         node *LL;
     private:
         node *last;
     public:
-        linkedList(int value)// creates 1st node of linkedList with value
+        circularLinkedList(int value)
         {
             node *n = (node *)malloc(sizeof(node));
             n->value = value;
-            n->next = NULL;
-            LL = n;
+            n->next = n;
             last = n;
+            LL = n;
         }
 
-        linkedList(int a[], int n)//array to linkedList
+        circularLinkedList(int a[], int n)//array to linkedList
         {
             node *p;
             LL=(node *)malloc(sizeof(node));
             LL->value = a[0];
-            LL->next = NULL;
+            LL->next = LL;
             p=LL;
             last = LL;
             for(int i=1; i<n; i++)
@@ -37,7 +37,7 @@ class linkedList
                 node *n=(node *)malloc(sizeof(node));
                 last->next=n;
                 n->value = a[i];
-                n->next = NULL;
+                n->next = LL;
                 last = n;
             }
         }
@@ -49,26 +49,20 @@ class linkedList
                 node *n=(node *)malloc(sizeof(node));
                 last->next=n;
                 n->value = a[i];
-                n->next = NULL;
+                n->next = LL;
                 last = n;
             }
         }
 
         void insert(int pos, int value)
         {
-            int c = count();
-            if(pos>=0 && pos<=c)
+            if(pos>=0 && pos<=count())
             {
-                node *n;        
-                node *p;
-                p = (node *)malloc(sizeof(node));
+                struct node *n = LL;        
+                struct node *p;
+                p = (struct node *)malloc(sizeof(struct node));
                 if(pos!=0)
-                {  
-                    int flag = 0;
-                    if(pos==c)      
-                    {
-                        flag = 1;
-                    }
+                {        
                     n = LL;
                     for(int i=1; i<pos; i++)
                     {
@@ -77,16 +71,25 @@ class linkedList
                     p->value = value;
                     p->next = n->next;
                     n->next = p;
-                    if(flag == 1)
-                    {
-                        last = p;
-                    }
                 }
                 else
                 {
-                    p->next = LL;
                     p->value = value;
-                    LL = p;
+                    if(n != NULL)
+                    {
+                        while(n->next != LL)
+                        {
+                            n = n->next;
+                        }
+                        n->next = p;
+                        p->next = LL;
+                        LL = p;
+                    }
+                    else
+                    {
+                        LL = p;
+                        p->next = LL;
+                    }
                 }
             }
         }
@@ -97,75 +100,89 @@ class linkedList
             p = (struct node *)malloc(sizeof(struct node));
             last->next = p;
             p->value = value;
-            p->next = NULL;
+            p->next = LL;
             last=last->next;
         }
 
-        int deleteLinkedList(int pos)
+        int deleteCLL(int pos)
         {
-            struct node *p, *q, *r;
-            p = LL;
-            if(pos<-1 || pos>count())
-                return INT_MAX;
-            if(pos == 0)
+            if(pos>=0 && pos<count())
             {
-                LL = LL->next;
-                int value = p->value;
-                free(p);
-                return value;
+                struct node *n = LL->next;  
+                struct node *p = LL;
+                struct node *r;
+                if(pos!=0)
+                {
+                    for(int i=1; i<pos; i++)
+                    {
+                        n = n->next;
+                        p = p->next;
+                    }
+                    r = n;
+                    int value = r->value;
+                    p->next = r->next;
+                    free(r);
+                    return value;
+                }
+                else
+                {
+                    r = LL;
+                    int value = r->value;
+                    while(n->next != LL)
+                    {
+                        n = n->next;
+                    }
+                    n->next = LL->next;
+                    LL = LL->next;
+                    free(r);
+                    return value;
+                }
             }
-            for(int i=1; i<pos; i++)
-            {
-                p = p->next;
-            }
-            q = p->next;
-            r = q;
-            q = q->next;
-            int value = r->value;
-            free(r);
-            p->next = q;
-            return value;
+            return INT_MAX;
         }
 
         void display()
         {
-            node *n = LL;
-            while(n!=NULL)
+            struct node *pointer = LL;
+            do
             {
-                printf("%d ", n->value);
-                n = n->next;
-            }
+                printf("%d ", pointer->value);
+                pointer = pointer->next;
+            }while(pointer != LL);
         }
 
-        void display(node *head)  //displays reverse LinkedList
+        void display(node *pointer)
         {
-            if(head!=NULL)
+            static int flag = 0;
+            if(pointer != LL || flag == 0)
             {
-                display(head->next);
-                printf("%d ", head->value);
+                flag = 1;
+                display(pointer->next);
+                printf("%d ", pointer->value);
             }
+            flag = 0;
         }
 
         int count()
         {
-            node *n = LL;
-            int count=0;
-            while(n!=NULL)
+            int count=1;
+            struct node *pointer = LL->next;
+            while(pointer!=LL)
             {
                 count++;
-                n = n->next;
+                pointer = pointer->next;
             }
             return count;
         }
 
         int sum()
         {
-            node *n = LL;
-            int sum=0;
-            while(n!=NULL)
+            int sum=LL->value;
+            struct node *pointer = LL->next;
+            while(pointer!=LL)
             {
-                sum = sum + n->value;
-                n = n->next;
+                sum = sum + pointer->value;
+                pointer = pointer->next;
             }
             return sum;
         }
@@ -179,14 +196,19 @@ class linkedList
             q=LL;
             p=NULL;
             r=NULL;
-            while (q!=NULL)
+            while (q->next!=LL)
             {
                 r = p;
                 p = q;
                 q = q->next;
                 p->next = r;
             }
+            r = p;
+            p = q;
+            q = q->next;
+            p->next = r;
             LL=p;
+            last->next = LL;
         }
 
         int max()
@@ -194,7 +216,7 @@ class linkedList
             node *n;
             int max = LL->value;
             n = LL->next;
-            while(n!=NULL)
+            while(n!=LL)
             {
                 if((n->value)>max)
                 {
@@ -210,7 +232,7 @@ class linkedList
             node *n;
             int min = LL->value;
             n = LL->next;
-            while(n!=NULL)
+            while(n!=LL)
             {
                 if((n->value)<min)
                 {
@@ -224,23 +246,24 @@ class linkedList
         node * linearSearch(int value)
         {
             node *n = LL;
-            while(n!=NULL)
+            do
             {
                 if(n->value == value)
                 {
                     return n;
                 }
                 n = n->next;
-            }
+            }while(n!=LL);
+
             return NULL;
         }
 
-        int isSortedLinkedList()
+        int isSorted()
         {
             int prev_value = LL->value;
             node *q = (node *)malloc(sizeof(node));
             q=LL->next;
-            while(q!=NULL) 
+            do
             {
                 if(prev_value > q->value)
                 {
@@ -248,41 +271,25 @@ class linkedList
                 }
                 prev_value = q->value;
                 q=q->next;
-            }
+            }while(q!=LL);
+
             return 1;
         }
-
-        int isLoop()
-        {
-            node *p,*q;
-            p=q=LL;
-            do
-            {
-                p=p->next;
-                q=q->next;
-                q=q?q->next:q;
-            }
-            while(p && q && p!=q);
-            return p==q?1:0;
-        }    
 };
 
 int main()
 {
     int a[]={1,2,3,4,5};
-    linkedList ll = linkedList(a,5);
-    // ll.appendArrayLL(a,5);
-    // printf("%d\n", ll.min());
-    // node *n = (node *)malloc(sizeof(node));
-    // n->value = 6;
-    // n->next =NULL;
-    // ll.LL->next = n;
-    // ll.insertLinkedList(0,-1);
-    ll.display();
-    // printf("%d",ll.isLoop());
-    // ll.deleteLinkedList(0);
+    circularLinkedList ll = circularLinkedList(a,5);
+    // ll.appendArrayCLL(a,5);
+    // ll.insertCircularLinkedList(9,-1);
+    // ll.insertLast(20);
+    // ll.deleteCircularLinkedList(9);
+    // ll.displayCircularLinkedList();
+    // printf("%d", ll.sumLinkedList());
     ll.reverse();
+    // printf("%d \n", ll.max());
+    printf("%d \n", ll.isSorted());
+    // ll.linearSearch(6);
     ll.display();
-    // ll.display(ll.LL);
-
 }
