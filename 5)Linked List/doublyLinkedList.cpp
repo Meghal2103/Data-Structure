@@ -20,7 +20,8 @@ class doublyLinkedList
         {
             node *n = (node *)malloc(sizeof(node));
             n->value = value;
-            n->next = n;
+            n->next = NULL;
+            n->prev = NULL;
             last = n;
             LL = n;
         }
