@@ -56,7 +56,8 @@ class circularLinkedList
 
         void insert(int pos, int value)
         {
-            if(pos>=0 && pos<=count())
+            int c = count();
+            if(pos>=0 && pos<=c)
             {
                 struct node *n = LL;        
                 struct node *p;
@@ -67,6 +68,10 @@ class circularLinkedList
                     for(int i=1; i<pos; i++)
                     {
                         n=n->next;
+                    }
+                    if(pos==c)
+                    {
+                        last = p;
                     }
                     p->value = value;
                     p->next = n->next;
@@ -104,7 +109,7 @@ class circularLinkedList
             last=last->next;
         }
 
-        int deleteCLL(int pos)
+        int deleteCLL(int pos)// last pointer
         {
             if(pos>=0 && pos<count())
             {
@@ -281,15 +286,16 @@ int main()
 {
     int a[]={1,2,3,4,5};
     circularLinkedList ll = circularLinkedList(a,5);
+    ll.insert(5,6);
     // ll.appendArrayCLL(a,5);
     // ll.insertCircularLinkedList(9,-1);
     // ll.insertLast(20);
     // ll.deleteCircularLinkedList(9);
     // ll.displayCircularLinkedList();
     // printf("%d", ll.sumLinkedList());
-    ll.reverse();
-    // printf("%d \n", ll.max());
-    printf("%d \n", ll.isSorted());
+    // ll.reverse();
+    // // printf("%d \n", ll.max());
+    // printf("%d \n", ll.isSorted());
     // ll.linearSearch(6);
     ll.display();
 }

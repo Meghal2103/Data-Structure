@@ -107,6 +107,23 @@ int delete(struct doublyLLNode **head, int pos)
     }
 }
 
+void reverse(struct doublyLLNode **head)
+{
+    struct doublyLLNode *n = *head;
+    struct doublyLLNode *node;
+    while(n != NULL)
+    {
+        node = n->next;
+        n->next = n->prev;
+        n->prev = node;
+        n = n->prev;
+        if(n != NULL)
+        {
+            *head = node;
+        }
+    }
+}
+
 void display(struct doublyLLNode *head)
 {
     struct doublyLLNode *n = head;
@@ -138,6 +155,8 @@ int main()
     head = arrayToLinkedList(a,6);
     // insert(&head,1,-1);
     display(head);
-    printf("\n%d\n", delete(&head,1));
+    // printf("\n%d\n", delete(&head,1));
+    reverse(&head);
+    printf("\n");
     display(head);
 }

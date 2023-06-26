@@ -4,42 +4,44 @@
 class node
 {
     public:
+        node *prev;
         int value;
         node *next;
 };
 
-class linkedList
+class doublyLinkedList
 {
     public:
         node *LL;
     private:
         node *last;
     public:
-        linkedList(int value)// creates 1st node of linkedList with value
+        doublyLinkedList(int value)
         {
             node *n = (node *)malloc(sizeof(node));
             n->value = value;
-            n->next = NULL;
-            LL = n;
+            n->next = n;
             last = n;
+            LL = n;
         }
 
-        linkedList(int a[], int n)//array to linkedList
+        doublyLinkedList(int a[], int n)
         {
-            node *p;
-            LL=(node *)malloc(sizeof(node));
-            LL->value = a[0];
-            LL->next = NULL;
-            p=LL;
-            last = LL;
+            node *head = (node *)malloc(sizeof(node));
+            head->prev = NULL;
+            head->next = NULL;
+            head->value = 0;
+            last = head;
             for(int i=1; i<n; i++)
             {
-                node *n=(node *)malloc(sizeof(node));
-                last->next=n;
+                node *n = (node *)malloc(sizeof(node));
                 n->value = a[i];
+                last->next = n;
                 n->next = NULL;
+                n->prev = last;
                 last = n;
             }
+            LL = head;
         }
 
         void appendArray(int a[], int n)
@@ -47,7 +49,8 @@ class linkedList
             for(int i=0; i<n; i++)
             {
                 node *n=(node *)malloc(sizeof(node));
-                last->next=n;
+                n->prev = last;
+                last->next = n;
                 n->value = a[i];
                 n->next = NULL;
                 last = n;
@@ -59,28 +62,34 @@ class linkedList
             int c = count();
             if(pos>=0 && pos<=c)
             {
-                node *n;        
-                node *p;
-                p = (node *)malloc(sizeof(node));
                 if(pos!=0)
-                {  
-                    if(pos==c)      
+                {
+                    node *n = LL;
+                    node *p = (node *)malloc(sizeof(node));
+                    for(int i=1; i<pos; i++)
+                    {
+                        n = n->next;
+                    }
+                    if(pos==c)
                     {
                         last = p;
                     }
-                    n = LL;
-                    for(int i=1; i<pos; i++)
-                    {
-                        n=n->next;
-                    }
                     p->value = value;
                     p->next = n->next;
+                    if(n->next!=NULL)
+                    {
+                        (n->next)->prev = p;
+                    }
+                    p->prev = n;
                     n->next = p;
                 }
                 else
                 {
+                    node *p = (node *)malloc(sizeof(node));
                     p->next = LL;
+                    p->prev = NULL;
                     p->value = value;
+                    LL->prev = p;
                     LL = p;
                 }
             }
@@ -90,36 +99,51 @@ class linkedList
         {
             node * p;
             p = (struct node *)malloc(sizeof(struct node));
+            p->prev = last;
             last->next = p;
             p->value = value;
             p->next = NULL;
             last=last->next;
         }
 
-        int deleteLinkedList(int pos)//last pointer
+        int deleteDLL(int pos)
         {
-            struct node *p, *q, *r;
-            p = LL;
-            if(pos<-1 || pos>count())
-                return INT_MAX;
-            if(pos == 0)
+            int c = count();
+            if(pos>=0 && pos<c)
             {
-                LL = LL->next;
-                int value = p->value;
-                free(p);
-                return value;
+                if(pos!=0)
+                {
+                    node *n = LL;
+                    node *node;
+                    for(int i=1; i<=pos; i++)
+                    {
+                        n = n->next;
+                    }
+                    node = n;
+                    (node->prev)->next = node->next;
+                    if(node->next!=NULL)
+                    {
+                        (node->next)->prev = node->prev;
+                    }
+                    if(pos == c-1)
+                    {
+                        last = node->prev;
+                    }
+                    int value = node->value;
+                    free(node);
+                    return value;
+                }
+                else
+                {
+                    (LL->next)->prev = NULL;
+                    node *node = LL;
+                    LL = LL->next;
+                    int value = LL->value;
+                    free(node);
+                    return value;
+                }
             }
-            for(int i=1; i<pos; i++)
-            {
-                p = p->next;
-            }
-            q = p->next;
-            r = q;
-            q = q->next;
-            int value = r->value;
-            free(r);
-            p->next = q;
-            return value;
+            return INT_MAX;
         }
 
         void display()
@@ -132,19 +156,20 @@ class linkedList
             }
         }
 
-        void display(node *head)  //displays reverse LinkedList
+        void display(node *pointer)
         {
-            if(head!=NULL)
+            node *n = last;
+            while(n!=NULL)
             {
-                display(head->next);
-                printf("%d ", head->value);
+                printf("%d ", n->value);
+                n = n->prev;
             }
         }
 
         int count()
         {
             node *n = LL;
-            int count=0;
+            int count = 0;
             while(n!=NULL)
             {
                 count++;
@@ -156,7 +181,7 @@ class linkedList
         int sum()
         {
             node *n = LL;
-            int sum=0;
+            int sum = 0;
             while(n!=NULL)
             {
                 sum = sum + n->value;
@@ -167,21 +192,20 @@ class linkedList
 
         void reverse()
         {
+            node *n = LL;
+            node *node;
             last = LL;
-            node *q = (node *)malloc(sizeof(node));
-            node *p = (node *)malloc(sizeof(node));
-            node *r = (node *)malloc(sizeof(node));
-            q=LL;
-            p=NULL;
-            r=NULL;
-            while (q!=NULL)
+            while(n != NULL)
             {
-                r = p;
-                p = q;
-                q = q->next;
-                p->next = r;
+                node = n->next;
+                n->next = n->prev;
+                n->prev = node;
+                n = n->prev;
+                if(n != NULL)
+                {
+                    LL = node;
+                }
             }
-            LL=p;
         }
 
         int max()
@@ -247,38 +271,17 @@ class linkedList
             return 1;
         }
 
-        int isLoop()
-        {
-            node *p,*q;
-            p=q=LL;
-            do
-            {
-                p=p->next;
-                q=q->next;
-                q=q?q->next:q;
-            }
-            while(p && q && p!=q);
-            return p==q?1:0;
-        }    
 };
 
 int main()
 {
-    int a[]={1,2,3,4,5};
-    linkedList ll = linkedList(a,5);
-    // ll.appendArrayLL(a,5);
-    // printf("%d\n", ll.min());
-    // node *n = (node *)malloc(sizeof(node));
-    // n->value = 6;
-    // n->next =NULL;
-    // ll.LL->next = n;
-    // ll.insertLinkedList(0,-1);
-    ll.display();
-    // printf("%d",ll.isLoop());
-    // ll.deleteLinkedList(0);
-    // ll.reverse();
-    ll.insert(5,6);
-    ll.display();
-    // ll.display(ll.LL);
+    int a[] = {0,1,2,3,4,5,6,7};
+    doublyLinkedList ll = doublyLinkedList(a,6);
+    // ll.appendArray(a,8);
+    // ll.insert(8,9);
+    // ll.deleteDLL(8);
+    // printf("%d ", ll.min());
+    ll.reverse();
+    ll.display(ll.LL);
 
 }
