@@ -100,7 +100,8 @@ class linkedList
         {
             struct node *p, *q, *r;
             p = LL;
-            if(pos<-1 || pos>count())
+            int c = count();
+            if(pos<-1 || pos>c)
                 return INT_MAX;
             if(pos == 0)
             {
@@ -109,17 +110,34 @@ class linkedList
                 free(p);
                 return value;
             }
-            for(int i=1; i<pos; i++)
+            if(pos != c-1)
             {
-                p = p->next;
+                for(int i=1; i<pos; i++)
+                {
+                    p = p->next;
+                }
+                q = p->next;
+                r = q;
+                q = q->next;
+                int value = r->value;
+                free(r);
+                p->next = q;
+                return value;
             }
-            q = p->next;
-            r = q;
-            q = q->next;
-            int value = r->value;
-            free(r);
-            p->next = q;
-            return value;
+            else
+            {
+                for(int i=1; i<pos; i++)
+                {
+                    last = p;
+                    p = p->next;
+                }
+                last = p;
+                r = p->next;
+                p->next = (p->next)->next;
+                int value = r->value;
+                free(r);
+                return value;
+            }
         }
 
         void display()
@@ -144,7 +162,7 @@ class linkedList
         int count()
         {
             node *n = LL;
-            int count = 1;
+            int count = 0;
             while(n!=NULL)
             {
                 count++;
@@ -278,6 +296,8 @@ int main()
     // ll.deleteLinkedList(0);
     // ll.reverse();
     ll.insert(5,6);
+    ll.insert(6,7);
+    ll.deleteLinkedList(6);
     ll.display();
     // ll.display(ll.LL);
 
