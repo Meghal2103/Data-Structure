@@ -15,6 +15,11 @@ class circularLinkedList
     private:
         node *last;
     public:
+        circularLinkedList()
+        {
+            LL = NULL;
+        }
+
         circularLinkedList(int value)
         {
             node *n = (node *)malloc(sizeof(node));
@@ -94,6 +99,7 @@ class circularLinkedList
                     {
                         LL = p;
                         p->next = LL;
+                        last = LL;
                     }
                 }
             }
@@ -109,7 +115,7 @@ class circularLinkedList
             last=last->next;
         }
 
-        int deleteCLL(int pos)// last pointer
+        int deleteCLL(int pos)
         {
             if(pos>=0 && pos<count())
             {
@@ -126,6 +132,7 @@ class circularLinkedList
                     r = n;
                     int value = r->value;
                     p->next = r->next;
+                    last = p;
                     free(r);
                     return value;
                 }
@@ -171,11 +178,14 @@ class circularLinkedList
         int count()
         {
             int count=1;
-            struct node *pointer = LL->next;
-            while(pointer!=LL)
+            if(LL!=NULL)
             {
-                count++;
-                pointer = pointer->next;
+                struct node *pointer = LL->next;
+                while(pointer!=LL)
+                {
+                    count++;
+                    pointer = pointer->next;
+                }
             }
             return count;
         }
@@ -285,8 +295,8 @@ class circularLinkedList
 int main()
 {
     int a[]={1,2,3,4,5};
-    circularLinkedList ll = circularLinkedList(a,5);
-    ll.insert(5,6);
+    circularLinkedList ll = circularLinkedList();
+    ll.insert(0,6);
     // ll.appendArrayCLL(a,5);
     // ll.insertCircularLinkedList(9,-1);
     // ll.insertLast(20);
@@ -297,5 +307,6 @@ int main()
     // // printf("%d \n", ll.max());
     // printf("%d \n", ll.isSorted());
     // ll.linearSearch(6);
+    ll.deleteCLL(5);
     ll.display();
 }

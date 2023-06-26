@@ -31,7 +31,7 @@ struct doublyLLNode * arrayToLinkedList(int a[], int n)
 int count(struct doublyLLNode * head)
 {
     struct doublyLLNode *n = head;
-    int count = 0;
+    int count = 1;
     while(n!=NULL)
     {
         count++;

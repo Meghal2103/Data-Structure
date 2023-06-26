@@ -169,7 +169,7 @@ class doublyLinkedList
         int count()
         {
             node *n = LL;
-            int count = 0;
+            int count = 1;
             while(n!=NULL)
             {
                 count++;
