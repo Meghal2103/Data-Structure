@@ -15,6 +15,11 @@ class linkedList
     private:
         node *last;
     public:
+        linkedList()
+        {
+            LL = NULL;
+        }
+
         linkedList(int value)// creates 1st node of linkedList with value
         {
             node *n = (node *)malloc(sizeof(node));
