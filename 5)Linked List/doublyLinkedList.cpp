@@ -1,24 +1,24 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-class node
+class doublyLinkedListNode
 {
     public:
-        node *prev;
+        doublyLinkedListNode *prev;
         int value;
-        node *next;
+        doublyLinkedListNode *next;
 };
 
 class doublyLinkedList
 {
     public:
-        node *LL;
+        doublyLinkedListNode *LL;
     private:
-        node *last;
+        doublyLinkedListNode *last;
     public:
         doublyLinkedList(int value)
         {
-            node *n = (node *)malloc(sizeof(node));
+            doublyLinkedListNode *n = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
             n->value = value;
             n->next = NULL;
             n->prev = NULL;
@@ -28,14 +28,14 @@ class doublyLinkedList
 
         doublyLinkedList(int a[], int n)
         {
-            node *head = (node *)malloc(sizeof(node));
+            doublyLinkedListNode *head = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
             head->prev = NULL;
             head->next = NULL;
             head->value = 0;
             last = head;
             for(int i=1; i<n; i++)
             {
-                node *n = (node *)malloc(sizeof(node));
+                doublyLinkedListNode *n = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
                 n->value = a[i];
                 last->next = n;
                 n->next = NULL;
@@ -49,7 +49,7 @@ class doublyLinkedList
         {
             for(int i=0; i<n; i++)
             {
-                node *n=(node *)malloc(sizeof(node));
+                doublyLinkedListNode *n=(doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
                 n->prev = last;
                 last->next = n;
                 n->value = a[i];
@@ -65,8 +65,8 @@ class doublyLinkedList
             {
                 if(pos!=0)
                 {
-                    node *n = LL;
-                    node *p = (node *)malloc(sizeof(node));
+                    doublyLinkedListNode *n = LL;
+                    doublyLinkedListNode *p = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
                     for(int i=1; i<pos; i++)
                     {
                         n = n->next;
@@ -86,7 +86,7 @@ class doublyLinkedList
                 }
                 else
                 {
-                    node *p = (node *)malloc(sizeof(node));
+                    doublyLinkedListNode *p = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
                     p->next = LL;
                     p->prev = NULL;
                     p->value = value;
@@ -98,8 +98,8 @@ class doublyLinkedList
 
         void insertLast(int value)
         {
-            node * p;
-            p = (struct node *)malloc(sizeof(struct node));
+            doublyLinkedListNode * p;
+            p = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
             p->prev = last;
             last->next = p;
             p->value = value;
@@ -114,8 +114,8 @@ class doublyLinkedList
             {
                 if(pos!=0)
                 {
-                    node *n = LL;
-                    node *node;
+                    doublyLinkedListNode *n = LL;
+                    doublyLinkedListNode *node;
                     for(int i=1; i<=pos; i++)
                     {
                         n = n->next;
@@ -137,7 +137,7 @@ class doublyLinkedList
                 else
                 {
                     (LL->next)->prev = NULL;
-                    node *node = LL;
+                    doublyLinkedListNode *node = LL;
                     LL = LL->next;
                     int value = LL->value;
                     free(node);
@@ -149,7 +149,7 @@ class doublyLinkedList
 
         void display()
         {
-            node *n = LL;
+            doublyLinkedListNode *n = LL;
             while(n!=NULL)
             {
                 printf("%d ", n->value);
@@ -157,9 +157,9 @@ class doublyLinkedList
             }
         }
 
-        void display(node *pointer)
+        void display(doublyLinkedListNode *pointer)
         {
-            node *n = last;
+            doublyLinkedListNode *n = last;
             while(n!=NULL)
             {
                 printf("%d ", n->value);
@@ -169,7 +169,7 @@ class doublyLinkedList
 
         int count()
         {
-            node *n = LL;
+            doublyLinkedListNode *n = LL;
             int count = 1;
             while(n!=NULL)
             {
@@ -181,7 +181,7 @@ class doublyLinkedList
 
         int sum()
         {
-            node *n = LL;
+            doublyLinkedListNode *n = LL;
             int sum = 0;
             while(n!=NULL)
             {
@@ -193,8 +193,8 @@ class doublyLinkedList
 
         void reverse()
         {
-            node *n = LL;
-            node *node;
+            doublyLinkedListNode *n = LL;
+            doublyLinkedListNode *node;
             last = LL;
             while(n != NULL)
             {
@@ -211,7 +211,7 @@ class doublyLinkedList
 
         int max()
         {
-            node *n;
+            doublyLinkedListNode *n;
             int max = LL->value;
             n = LL->next;
             while(n!=NULL)
@@ -227,7 +227,7 @@ class doublyLinkedList
 
         int min()
         {
-            node *n;
+            doublyLinkedListNode *n;
             int min = LL->value;
             n = LL->next;
             while(n!=NULL)
@@ -241,9 +241,9 @@ class doublyLinkedList
             return min;
         }
 
-        node * linearSearch(int value)
+        doublyLinkedListNode * linearSearch(int value)
         {
-            node *n = LL;
+            doublyLinkedListNode *n = LL;
             while(n!=NULL)
             {
                 if(n->value == value)
@@ -258,7 +258,7 @@ class doublyLinkedList
         int isSortedLinkedList()
         {
             int prev_value = LL->value;
-            node *q = (node *)malloc(sizeof(node));
+            doublyLinkedListNode *q = (doublyLinkedListNode *)malloc(sizeof(doublyLinkedListNode));
             q=LL->next;
             while(q!=NULL) 
             {
@@ -271,7 +271,6 @@ class doublyLinkedList
             }
             return 1;
         }
-
 };
 
 int main()
@@ -283,6 +282,6 @@ int main()
     // ll.deleteDLL(8);
     // printf("%d ", ll.min());
     ll.reverse();
-    ll.display(ll.LL);
+    ll.display();
 
 }
