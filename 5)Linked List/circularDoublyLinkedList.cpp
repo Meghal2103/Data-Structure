@@ -1,24 +1,24 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-class node
+class circularDoublyLinkedListNode
 {
     public:
-        node *prev;
+        circularDoublyLinkedListNode *prev;
         int value;
-        node *next;
+        circularDoublyLinkedListNode *next;
 };
 
-class doublyLinkedList
+class circularDoublyLinkedList
 {
     public:
-        node *LL;
+        circularDoublyLinkedListNode *LL;
     private:
-        node *last;
+        circularDoublyLinkedListNode *last;
     public:
-        doublyLinkedList(int value)
+        circularDoublyLinkedList(int value)
         {
-            node *n = (node *)malloc(sizeof(node));
+            circularDoublyLinkedListNode *n = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
             n->value = value;
             n->next = n;
             n->prev = n;
@@ -26,16 +26,16 @@ class doublyLinkedList
             LL = n;
         }
 
-        doublyLinkedList(int a[], int n)
+        circularDoublyLinkedList(int a[], int n)
         {
-            node *head = (node *)malloc(sizeof(node));
+            circularDoublyLinkedListNode *head = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
             head->prev = head;
             head->next = head;
             head->value = 0;
             last = head;
             for(int i=1; i<n; i++)
             {
-                node *n = (node *)malloc(sizeof(node));
+                circularDoublyLinkedListNode *n = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
                 n->value = a[i];
                 last->next = n;
                 n->next = NULL;
@@ -51,7 +51,7 @@ class doublyLinkedList
         {
             for(int i=1; i<n; i++)
             {
-                node *n = (node *)malloc(sizeof(node));
+                circularDoublyLinkedListNode *n = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
                 n->value = a[i];
                 last->next = n;
                 n->next = NULL;
@@ -69,8 +69,8 @@ class doublyLinkedList
             {
                 if(pos!=0)
                 {
-                    node *n = LL;
-                    node *p = (node *)malloc(sizeof(node));
+                    circularDoublyLinkedListNode *n = LL;
+                    circularDoublyLinkedListNode *p = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
                     for(int i=1; i<pos; i++)
                     {
                         n = n->next;
@@ -90,7 +90,7 @@ class doublyLinkedList
                 }
                 else
                 {
-                    node *p = (node *)malloc(sizeof(node));
+                    circularDoublyLinkedListNode *p = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
                     p->value = value;
                     p->next = LL;
                     p->prev = (LL->prev);
@@ -103,8 +103,8 @@ class doublyLinkedList
 
         void insertLast(int value)
         {
-            node * p;
-            p = (struct node *)malloc(sizeof(struct node));
+            circularDoublyLinkedListNode * p;
+            p = (struct circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
             p->value = value;
             p->next = LL;
             p->prev = LL->prev;
@@ -120,8 +120,8 @@ class doublyLinkedList
             {
                 if(pos!=0)
                 {
-                    node *n = LL;
-                    node *node;
+                    circularDoublyLinkedListNode *n = LL;
+                    circularDoublyLinkedListNode *node;
                     for(int i=1; i<=pos; i++)
                     {
                         n = n->next;
@@ -146,7 +146,7 @@ class doublyLinkedList
                 {
                     (LL->prev)->next = LL->next;
                     (LL->next)->prev = LL->prev;
-                    node *node = LL;
+                    circularDoublyLinkedListNode *node = LL;
                     LL = LL->next;
                     int value = LL->value;
                     free(node);
@@ -158,7 +158,7 @@ class doublyLinkedList
 
         void display()
         {
-            node *n = LL;
+            circularDoublyLinkedListNode *n = LL;
             do
             {
                 printf("%d ", n->value);
@@ -166,9 +166,9 @@ class doublyLinkedList
             }while(n!=LL);
         }
 
-        void display(node *pointer)
+        void display(circularDoublyLinkedListNode *pointer)
         {
-            node *n = last;
+            circularDoublyLinkedListNode *n = last;
             do
             {
                 printf("%d ", n->value);
@@ -178,7 +178,7 @@ class doublyLinkedList
 
         int count()
         {
-            node *n = LL;
+            circularDoublyLinkedListNode *n = LL;
             int count = 0;
             do
             {
@@ -191,7 +191,7 @@ class doublyLinkedList
 
         int sum()
         {
-            node *n = LL;
+            circularDoublyLinkedListNode *n = LL;
             int sum = 0;
                 do
                 {
@@ -203,8 +203,8 @@ class doublyLinkedList
 
         void reverse()
         {
-            node *n = LL;
-            node *node;
+            circularDoublyLinkedListNode *n = LL;
+            circularDoublyLinkedListNode *node;
             last = LL;
             do
             {
@@ -222,7 +222,7 @@ class doublyLinkedList
 
         int max()
         {
-            node *n;
+            circularDoublyLinkedListNode *n;
             int max = LL->value;
             n = LL->next;
             do
@@ -239,7 +239,7 @@ class doublyLinkedList
 
         int min()
         {
-            node *n;
+            circularDoublyLinkedListNode *n;
             int min = LL->value;
             n = LL->next;
             do
@@ -254,9 +254,9 @@ class doublyLinkedList
             return min;
         }
 
-        node * linearSearch(int value)
+        circularDoublyLinkedListNode * linearSearch(int value)
         {
-            node *n = LL;
+            circularDoublyLinkedListNode *n = LL;
             do
             {
                 if(n->value == value)
@@ -272,7 +272,7 @@ class doublyLinkedList
         int isSortedLinkedList()
         {
             int prev_value = LL->value;
-            node *q = (node *)malloc(sizeof(node));
+            circularDoublyLinkedListNode *q = (circularDoublyLinkedListNode *)malloc(sizeof(circularDoublyLinkedListNode));
             q=LL->next;
             do
             {
@@ -283,6 +283,7 @@ class doublyLinkedList
                 prev_value = q->value;
                 q=q->next;
             }while(q!=LL); 
+            
             return 1;
         }
 };
@@ -290,7 +291,7 @@ class doublyLinkedList
 int main()
 {
     int a[] = {0,1,2,3,4,5,6,7};
-    doublyLinkedList ll = doublyLinkedList(6);
+    circularDoublyLinkedList ll = circularDoublyLinkedList(6);
     // printf("%d\n", ll.isSortedLinkedList());
     // ll.insertLast(6);
     // // ll.deleteDLL(4);
@@ -299,6 +300,4 @@ int main()
     // ll.reverse(); 
     ll.insertLast(7);
     ll.display();
-
-
 }
