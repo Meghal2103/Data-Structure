@@ -290,13 +290,14 @@ class doublyLinkedList
 int main()
 {
     int a[] = {0,1,2,3,4,5,6,7};
-    doublyLinkedList ll = doublyLinkedList(a,6);
+    doublyLinkedList ll = doublyLinkedList(6);
     // printf("%d\n", ll.isSortedLinkedList());
-    ll.insertLast(6);
-    // ll.deleteDLL(4);
-    // ll.appendArray(a,6);
-    ll.reverse(); 
-    ll.reverse(); 
+    // ll.insertLast(6);
+    // // ll.deleteDLL(4);
+    // // ll.appendArray(a,6);
+    // ll.reverse(); 
+    // ll.reverse(); 
+    ll.insertLast(7);
     ll.display();
 
 
