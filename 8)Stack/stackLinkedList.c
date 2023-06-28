@@ -71,6 +71,7 @@ int pop(struct stack *s)
     else
     {
         printf("Stack Empty\n");
+        return INT_MAX;
     }
 }
 
