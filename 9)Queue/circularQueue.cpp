@@ -21,7 +21,6 @@ class circularQueue
         {
             if(front == rear)
             {
-                front = rear = -1;
                 return 1;   
             }
             return 0;
