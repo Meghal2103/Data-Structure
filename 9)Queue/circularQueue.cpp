@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class Queue
+class circularQueue
 {
     public:
         int rear;
@@ -9,7 +9,7 @@ class Queue
         int size;
         int *q;
 
-        Queue(int s)
+        circularQueue(int s)
         {
             size = s;
             front = -1;
@@ -106,7 +106,7 @@ class Queue
 
 int main()
 {
-    Queue q = Queue(8);
+    circularQueue q = circularQueue(8);
     q.enQueue(6);
     q.enQueue(8);
     printf("%d\n",q.lastQueue());
