@@ -29,7 +29,7 @@ class Queue
 
         int isFull()
         {
-            if((!isEmpty()) && front == size-1)
+            if((rear+1)%size==front)
             {
                 return 1;
             }
@@ -40,7 +40,7 @@ class Queue
         {
             if(!isFull())
             {
-                rear++;
+                rear = (rear + 1) % size;
                 q[rear] = value;
             }
             else
@@ -53,8 +53,10 @@ class Queue
         {
             if(!isEmpty())
             {
-                front++;
-                return q[front];
+                front = (front + 1) % size;
+                int value = q[front];
+                q[front] = INT_MAX;
+                return value;
             }
             else
             {
@@ -93,10 +95,12 @@ class Queue
 
         void displayQueue()
         {
-            for(int i = front+1; i <=rear; i++)
+            int i = front + 1;
+            do
             {
                 printf("%d ", q[i]);
-            }
+                i = (i + 1) % size;
+            } while (i != (rear + 1) % size);
         }
 };
 
@@ -107,6 +111,14 @@ int main()
     q.enQueue(8);
     printf("%d\n",q.lastQueue());
     q.displayQueue();
+    q.deQueue();
+    q.enQueue(9);
+    q.enQueue(9);
+    q.enQueue(9);
+    q.enQueue(9);
+    q.enQueue(9);
+    q.enQueue(9);
+    q.enQueue(9);
     q.deQueue();
     q.enQueue(9);
     printf("%d\n",q.lastQueue());
