@@ -100,59 +100,6 @@ class stack
 
 };
 
-int paranthesisMatching(char exp[])
-{
-    stack s = stack();
-    char a = exp[0];
-    int i = 0, j = 0;
-    while(a!=NULL && i==0)
-    {
-        if(a == '(' || a == '{' || a == ']')
-        {
-            s.push(a);
-        }
-        else if(a ==')' || a == '}' || a == ']')
-        {
-            char b = s.pop();
-            if(b  != NULL)
-            {
-                if(b == '(')
-                {
-                    if(a != ')')
-                    {
-                        i = 1;
-                    }
-                }
-                else if(b == '{')
-                {
-                    if(a != '}')
-                    {
-                        i = 1;
-                    }
-                }
-                else if (b == '[')
-                {
-                    if(a != ']')
-                    {
-                        i = 1;
-                    }
-                }
-            }
-            else
-            {
-                i = 1;
-            }
-        }
-        j++;
-        a = exp[j];
-    }
-    if(s.pop() != NULL)
-    {
-        i = 1;
-    }
-    return i;
-}
-
 int isOperand(char c)
 {
     if(c == '*' || c == '-' || c == '+' || c == '/' || c == '^' || c == '(' || c == ')')
