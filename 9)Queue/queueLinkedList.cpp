@@ -141,7 +141,6 @@ class Queue
                 n = n->next;
             }
         }
-
 };
 
 int main()
