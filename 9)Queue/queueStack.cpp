@@ -6,7 +6,7 @@ class queue
 {
     private:
         stack s1; //enqueue
-        stack s2; //dequque
+        stack s2; //dequeue
     public:
         int isEmpty()
         {

@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 class node
 {
@@ -16,13 +16,13 @@ class Queue
 
         Queue()
         {
-            rear = NULL;
-            front = NULL;
+            rear = nullptr;
+            front = nullptr;
         }
 
         int isEmpty()
         {
-            if(front == rear)
+            if(front == rear && front == nullptr)
             {
                 return 1;   
             }
@@ -32,7 +32,7 @@ class Queue
         int isFull()
         {
             node *n = (node *)malloc(sizeof(node));
-            if(n == NULL)
+            if(n == nullptr)
             {
                 free(n);
                 return 1;
@@ -46,8 +46,8 @@ class Queue
             {
                 node *n = (node *)malloc(sizeof(node));
                 n->value = value;
-                n->next = NULL;
-                if(rear == NULL)
+                n->next = nullptr;
+                if(rear == nullptr)
                 {
                     rear = n;
                     front = n;
@@ -79,7 +79,34 @@ class Queue
             }
         }
 
-        int firstQueue()
+        int deQueueF()
+        {
+            if(!isEmpty())
+            {
+                if(front->next == NULL)
+                {
+                    node *n;
+                    n = rear;
+                    int value  = n->value;
+                    front = nullptr;
+                    free(n);
+                    return value;
+                }
+                else
+                {
+                    node *n;
+                    n = front;
+                    front = front->next;
+                    int value = n->value;
+                    free(n);
+                    return value;
+                }
+            }
+            return INT_MAX;
+        }
+
+
+    int firstQueue()
         {
             if(!isEmpty())
             {
@@ -108,7 +135,7 @@ class Queue
         void displayQueue()
         {
             node *n = front;
-            while(n != NULL)
+            while(n != nullptr)
             {
                 printf("%d ", n->value);
                 n = n->next;
@@ -124,6 +151,9 @@ int main()
     q.enQueue(6);
     q.enQueue(7);
     q.enQueue(8);
+    q.deQueue();
+    q.deQueue();
+    q.deQueue();
     q.deQueue();
     printf("%d\n", q.lastQueue());
     printf("%d\n", q.firstQueue());
