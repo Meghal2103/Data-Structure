@@ -22,7 +22,6 @@ class stack
         {
             if(top == NULL)
             {
-                printf("Stack Empty\n");
                 return 1;
             }
             else
@@ -36,7 +35,6 @@ class stack
             node *n = (node *)malloc(sizeof(node));
             if(n == NULL)
             {
-                printf("Stack Full\n");
                 return 1;
             }
             else
@@ -72,7 +70,6 @@ class stack
             }
             else
             {
-                printf("Stack Empty\n");
                 return INT_MAX;
             }
         }
@@ -87,7 +84,6 @@ class stack
             }
             else
             {
-                printf("StackEmpty\n");
                 return INT_MAX;
             }
         }
