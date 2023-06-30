@@ -83,7 +83,7 @@ class Queue
         {
             if(!isEmpty())
             {
-                if(front->next == NULL)
+                if(front->next == nullptr)
                 {
                     node *n;
                     n = rear;
