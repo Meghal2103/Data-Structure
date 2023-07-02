@@ -10,10 +10,10 @@ class node
 
 class Queue
 {
-    public:
+    private:
         node *rear;
         node *front;
-
+    public:
         Queue()
         {
             rear = nullptr;
