@@ -1,11 +1,19 @@
-#include <cstdio>
-#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 
 class node
 {
     public:
-        int value;
+        struct binaryTree *value;
         node *next;
+};
+
+
+struct binaryTree
+{
+    struct binaryTree *left;
+    int value;
+    struct binaryTree *right;
 };
 
 class Queue
@@ -40,7 +48,7 @@ class Queue
             return 0;
         }
 
-        void enQueue(int value)
+        void enQueue(struct binaryTree *value)
         {
             if(!isFull())
             {
@@ -64,11 +72,11 @@ class Queue
             }
         }
 
-        int deQueue()
+        struct binaryTree *deQueue()
         {
             if(!isEmpty())
             {
-                int value = front->value;
+                struct binaryTree *value = front->value;
                 if(front==rear)
                 {
                     front = NULL;
@@ -83,39 +91,11 @@ class Queue
             else
             {
                 printf("QueueEmpty");
-                return INT_MAX;
+                return 0;
             }
         }
 
-        int deQueueF()
-        {
-            if(!isEmpty())
-            {
-                if(front->next == nullptr && front == rear)
-                {
-                    node *n;
-                    n = rear;
-                    int value  = n->value;
-                    front = nullptr;
-                    rear = nullptr;
-                    free(n);
-                    return value;
-                }
-                else
-                {
-                    node *n;
-                    n = front;
-                    front = front->next;
-                    int value = n->value;
-                    free(n);
-                    return value;
-                }
-            }
-            return INT_MAX;
-        }
-
-
-    int firstQueue()
+        struct binaryTree *firstQueue()
         {
             if(!isEmpty())
             {
@@ -124,11 +104,11 @@ class Queue
             else
             {
                 printf("QueueEmpty");
-                return INT_MAX;
+                return 0;
             }
         }
 
-        int lastQueue()
+        struct binaryTree *lastQueue()
         {
             if(!isEmpty())
             {
@@ -137,7 +117,7 @@ class Queue
             else
             {
                 printf("QueueEmpty");
-                return INT_MAX;
+                return 0;
             }
         }
 
@@ -146,7 +126,7 @@ class Queue
             node *n = front;
             while(n != nullptr)
             {
-                printf("%d ", n->value);
+                printf("%u ", n->value);
                 n = n->next;
             }
         }
