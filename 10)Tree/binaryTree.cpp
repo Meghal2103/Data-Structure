@@ -1,12 +1,67 @@
 #include <stdio.h>
-#include <D:\Data Structure\10)Tree\queue.h>
+#include <D:\Data Structure\10)Tree\stack.h>
 
-// struct binaryTree
-// {
-//     struct binaryTree *left;
-//     int value;
-//     struct binaryTree *right;
-// };
+void preOrder(struct binaryTree T)
+{
+    printf("%d ", T.value);
+    if(T.left!=NULL)
+    {
+        preOrder(*(T.left));
+    }
+    if(T.right!=NULL)
+    {
+        preOrder(*(T.right));
+    }
+};
+
+void preOrderIterative(struct binaryTree *T)
+{
+    stack s;
+    struct binaryTree *t = T;
+    s.push(NULL);
+    while(t!=NULL)
+    {
+        printf("%d ", (*t).value);
+        if((*t).right!=NULL)
+        {
+            s.push((*t).right);
+        }
+        if((*t).left!=NULL)
+        {
+            t = (*t).left;
+        }
+        else
+        {
+            t = s.pop();
+        }
+    }
+};
+
+void postOrder(struct binaryTree T)
+{    
+    if(T.left!=NULL)
+    {
+        postOrder(*(T.left));
+    }
+    if(T.right!=NULL)
+    {
+        postOrder(*(T.right));
+    }
+    printf("%d ", T.value);
+};
+
+void inOrder(struct binaryTree T)
+{    
+    if(T.left!=NULL)
+    {
+        inOrder(*(T.left));
+    }
+    printf("%d ", T.value);
+    if(T.right!=NULL)
+    {
+        inOrder(*(T.right));
+    }
+};
 
 void createTree(struct binaryTree *T)
 {
@@ -19,7 +74,7 @@ void createTree(struct binaryTree *T)
     while(!q.isEmpty())
     {
         struct binaryTree *p = q.deQueue();
-        printf("Does node with value %d have left child? (Y)", p->value);
+        printf("Does node with value %d have left child? (Y) ", p->value);
         char l;
         scanf(" %c", &l);
         if(l == 'y' ||l == 'Y')
@@ -36,7 +91,7 @@ void createTree(struct binaryTree *T)
         {
             p->left = NULL;
         }
-        printf("Does node with value %d have right child? (Y)", p->value);
+        printf("Does node with value %d have right child? (Y) ", p->value);
         char r;
         scanf(" %c", &r);
         if(r == 'y' ||r == 'Y')
@@ -60,4 +115,10 @@ int main()
 {
     struct binaryTree t;
     createTree(&t);
+    preOrder(t);
+    printf("\n");
+    preOrderIterative(&t);
+    // postOrder(t);
+    // printf("\n");
+    // inOrder(t);
 }

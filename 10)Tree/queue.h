@@ -8,7 +8,6 @@ class node
         node *next;
 };
 
-
 struct binaryTree
 {
     struct binaryTree *left;
@@ -91,7 +90,7 @@ class Queue
             else
             {
                 printf("QueueEmpty");
-                return 0;
+                return NULL;
             }
         }
 
@@ -104,7 +103,7 @@ class Queue
             else
             {
                 printf("QueueEmpty");
-                return 0;
+                return NULL;
             }
         }
 
@@ -117,7 +116,7 @@ class Queue
             else
             {
                 printf("QueueEmpty");
-                return 0;
+                return NULL;
             }
         }
 
