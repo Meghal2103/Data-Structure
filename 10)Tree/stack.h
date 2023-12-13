@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <D:\Data Structure\10)Tree\queue.h>
+#include <D:\Data_Structure\10)Tree\queue.h>
 
 class stack
 {
