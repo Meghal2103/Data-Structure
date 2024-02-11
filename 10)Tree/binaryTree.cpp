@@ -119,7 +119,6 @@ void inOrderIterative(struct binaryTree *T)
 void levelOrder(struct binaryTree *T)
 {
     Queue q;
-    
     struct binaryTree *t = T;
     q.enQueue(t);
     while(q.isEmpty()==0)
@@ -134,6 +133,55 @@ void levelOrder(struct binaryTree *T)
         {
             q.enQueue(t->right);
         }
+    }
+}
+
+int numberOfNodes(struct binaryTree *T)
+{
+    if(T == NULL)
+    {
+        return 0;
+    }
+    return 1 + numberOfNodes(T->left) + numberOfNodes(T->right);
+}
+
+int numberOfNodesIterative(struct binaryTree *T)
+{
+    int count = 0;
+    Queue q;
+    struct binaryTree *t = T;
+    q.enQueue(t);
+    while(q.isEmpty()==0)
+    {
+        t = q.deQueue();
+        count++;
+        if(t->left!=NULL)
+        {
+            q.enQueue(t->left);
+        }
+        if(t->right!=NULL)
+        {
+            q.enQueue(t->right);
+        }
+    }
+    return count;
+}
+
+int height(struct binaryTree *T)
+{
+    if(T == NULL)
+    {
+        return 0;
+    }
+    int left = height(T->left);
+    int right = height(T->right);
+    if(left>right)
+    {
+        return left+1;
+    }
+    else
+    {
+        return right+1;
     }
 }
 
@@ -227,6 +275,9 @@ int main()
     inOrderIterative(&t1);
     printf("\n");
     levelOrder(&t1);
+    printf("\n%d", numberOfNodes(&t1));
+    printf("\n%d", numberOfNodesIterative(&t1));
+    printf("\n%d", height(&t1));
 }
 
 // t1.left = &t2;
