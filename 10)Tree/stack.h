@@ -16,7 +16,7 @@ class stack
         {
             if(top == NULL)
             {
-                printf("Stack Empty\n");
+                // printf("Stack Empty\n");
                 return 1;
             }
             else
@@ -85,6 +85,19 @@ class stack
             }
         }
 
+        struct node *Top()
+        {
+            if(!isEmpty())
+            {
+                return top;
+            }
+            else
+            {
+                printf("StackEmpty\n");
+                return NULL;
+            }
+        }
+
         void display()
         {
             struct node *n = top;
@@ -94,5 +107,4 @@ class stack
                 n = n->next;
             }
         }
-
 };
