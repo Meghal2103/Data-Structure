@@ -16,7 +16,7 @@ void preOrder(struct binaryTree T)
 
 void preOrderIterative(struct binaryTree *T)
 {
-    stack s;
+    Stack s;
     struct binaryTree *t = T;
     s.push(NULL);
     while(t!=NULL)
@@ -52,7 +52,7 @@ void postOrder(struct binaryTree T)
 
 void postOrderIterative(struct binaryTree *T)
 {
-    stack s;
+    Stack s;
     // s.push(NULL);   
     struct binaryTree *t = T;
     while (t!=NULL || s.isEmpty() == 0)
@@ -98,7 +98,7 @@ void inOrder(struct binaryTree T)
 
 void inOrderIterative(struct binaryTree *T)
 {
-    stack s;
+    Stack s;
     struct binaryTree *t = T;
     while (t!=NULL || s.isEmpty() == 0)
     {
@@ -115,6 +115,27 @@ void inOrderIterative(struct binaryTree *T)
         }
     }
 };
+
+void levelOrder(struct binaryTree *T)
+{
+    Queue q;
+    
+    struct binaryTree *t = T;
+    q.enQueue(t);
+    while(q.isEmpty()==0)
+    {
+        t = q.deQueue();
+        printf("%d ", t->value);
+        if(t->left!=NULL)
+        {
+            q.enQueue(t->left);
+        }
+        if(t->right!=NULL)
+        {
+            q.enQueue(t->right);
+        }
+    }
+}
 
 void createTree(struct binaryTree *T)
 {
@@ -204,6 +225,8 @@ int main()
     inOrder(t1);
     printf("\n");
     inOrderIterative(&t1);
+    printf("\n");
+    levelOrder(&t1);
 }
 
 // t1.left = &t2;

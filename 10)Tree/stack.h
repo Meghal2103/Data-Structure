@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <D:\Data_Structure\10)Tree\queue.h>
 
-class stack
+class Stack
 {
     private:
         class node *top;
     public:
-        stack()
+        Stack()
         {
             top = NULL;
         }
