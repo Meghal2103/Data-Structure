@@ -185,6 +185,19 @@ int height(struct binaryTree *T)
     }
 }
 
+int numberOfleafNodes(struct binaryTree *T)
+{
+    if(T == NULL)
+    {
+        return 0;
+    }
+    if(T->left == NULL && T->right == NULL)
+    {
+        return 1;
+    }
+    return numberOfleafNodes(T->left) + numberOfleafNodes(T->right);
+}
+
 void createTree(struct binaryTree *T)
 {
     int root;
@@ -236,50 +249,51 @@ void createTree(struct binaryTree *T)
 int main()
 {
     struct binaryTree t;
-    struct binaryTree t1,t2,t3,t4,t5,t6,t7,t8;
-    t1.value = 1;
-    t2.value = 2;
-    t3.value = 3;
-    t4.value = 4;
-    t5.value = 5;
-    t6.value = 6;
-    t7.value = 7;
-    t8.value = 8;
-    t1.left = &t2;
-    t1.right = &t3;
-    t2.left = &t4;
-    t2.right = &t5;
-    t3.left = &t6;
-    t3.right = NULL;
-    t4.left = NULL;
-    t4.right = NULL;
-    t5.left = &t7;
-    t5.right = NULL;
-    t6.left = &t8;
-    t6.right = NULL;
-    t7.left = NULL;
-    t7.right = NULL;
-    t8.left = NULL;
-    t8.right = NULL;
-    // createTree(&t);
-    preOrder(t1);
+    createTree(&t);
+    preOrder(t);
     printf("\n");
-    preOrderIterative(&t1);
+    preOrderIterative(&t);
     printf("\n");
-    postOrder(t1);
+    postOrder(t);
     printf("\n");
-    postOrderIterative(&t1);
+    postOrderIterative(&t);
     printf("\n");
-    inOrder(t1);
+    inOrder(t);
     printf("\n");
-    inOrderIterative(&t1);
+    inOrderIterative(&t);
     printf("\n");
-    levelOrder(&t1);
-    printf("\n%d", numberOfNodes(&t1));
-    printf("\n%d", numberOfNodesIterative(&t1));
-    printf("\n%d", height(&t1));
+    levelOrder(&t);
+    printf("\n%d", numberOfNodes(&t));
+    printf("\n%d", numberOfNodesIterative(&t));
+    printf("\n%d", height(&t));
+    printf("\n%d", numberOfleafNodes(&t));
 }
 
+// struct binaryTree t1,t2,t3,t4,t5,t6,t7,t8;
+// t1.value = 1;
+// t2.value = 2;
+// t3.value = 3;
+// t4.value = 4;
+// t5.value = 5;
+// t6.value = 6;
+// t7.value = 7;
+// t8.value = 8;
+// t1.left = &t2;
+// t1.right = &t3;
+// t2.left = &t4;
+// t2.right = &t5;
+// t3.left = &t6;
+// t3.right = NULL;
+// t4.left = NULL;
+// t4.right = NULL;
+// t5.left = &t7;
+// t5.right = NULL;
+// t6.left = &t8;
+// t6.right = NULL;
+// t7.left = NULL;
+// t7.right = NULL;
+// t8.left = NULL;
+// t8.right = NULL;
 // t1.left = &t2;
 // t1.right = &t3;
 // t2.left = &t4;
